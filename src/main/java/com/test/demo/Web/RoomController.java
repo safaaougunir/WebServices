@@ -1,16 +1,16 @@
 package com.test.demo.Web;
 
 import com.test.demo.DAO.RoomDao;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.test.demo.Models.Room;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 @RestController
-@RequestMapping(value = "/api/rooms")
 @Transactional
 public class RoomController {
 
@@ -21,9 +21,15 @@ public class RoomController {
         this.roomDao = roomDao;
     }
 
-    @GetMapping
+    @RequestMapping(value = "/api/rooms")
     public List<RoomDto> list() {
         return roomDao.findAll().stream().map(RoomDto::new).collect(Collectors.toList());
+    }
+
+    @GetMapping(value = "/api/rooms/{id}")
+    @ResponseBody
+    public RoomDto getRoomByID(@PathVariable Long id) {
+        return new RoomDto(roomDao.getOne(id));
     }
 
 }
