@@ -4,15 +4,16 @@ import com.test.demo.DAO.LightDao;
 import com.test.demo.DAO.*;
 import com.test.demo.DAO.RoomDaoCustom;
 import com.test.demo.Models.*;
+import com.test.demo.Models.Light;
+import com.test.demo.Models.Status;
+
 import com.test.demo.DAO.RoomDao;
-import com.test.demo.Models.Room;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @Transactional
@@ -26,7 +27,7 @@ public class RoomController {
 
     }
 
-    @RequestMapping(value = "/api/rooms")
+    @GetMapping(value = "/api/rooms")
     public List<RoomDto> list() {
         return roomDao.findAll().stream().map(RoomDto::new).collect(Collectors.toList());
     }
@@ -40,6 +41,7 @@ public class RoomController {
             light.setStatus(Status.ON);
 
         }
+
         return getRoomByID(id);
     }
 
@@ -60,4 +62,11 @@ public class RoomController {
     public RoomDto getRoomByID(@PathVariable Long id) {
         return new RoomDto(roomDao.getOne(id));
     }
+
+
+    @GetMapping(value = "/api/rooms/list_with_on_lights")
+    public List<RoomDto> listWithOnLight() {
+        return roomDao.findRoomsWithOnLight().stream().map(RoomDto::new).collect(Collectors.toList());
+    }
+
 }
