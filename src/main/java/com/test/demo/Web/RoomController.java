@@ -34,15 +34,15 @@ public class RoomController {
     }
 
     @PostMapping(value = "/api/rooms/{id}/switch-light")
-    public RoomDto switchLight(@PathVariable Long roomId) {
-        Light light = roomDao.getOne(roomId).getLight();
+    public RoomDto switchLight(@PathVariable Long id) {
+        Light light = roomDao.getOne(id).getLight();
         if (light.getStatus() == Status.ON) {
             light.setStatus(Status.OFF);
         } else {
             light.setStatus(Status.ON);
 
         }
-        return getRoomByID(roomId);
+        return getRoomByID(id);
     }
 
     @GetMapping(value = "/api/rooms/{id}")
