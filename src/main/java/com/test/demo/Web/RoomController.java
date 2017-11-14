@@ -3,9 +3,7 @@ package com.test.demo.Web;
 import com.test.demo.DAO.LightDao;
 import com.test.demo.DAO.*;
 import com.test.demo.DAO.RoomDaoCustom;
-import com.test.demo.Models.Light;
-import com.test.demo.Models.Room;
-import com.test.demo.Models.Status;
+import com.test.demo.Models.*;
 import com.test.demo.DAO.RoomDao;
 import com.test.demo.Models.Room;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +38,18 @@ public class RoomController {
             light.setStatus(Status.OFF);
         } else {
             light.setStatus(Status.ON);
+
+        }
+        return getRoomByID(id);
+    }
+
+    @PostMapping(value = "/api/rooms/{id}/switch-noise")
+    public RoomDto switchNoise(@PathVariable Long id) {
+        Noise noise = roomDao.getOne(id).getNoise();
+        if (noise.getStatus() == Status.ON) {
+            noise.setStatus(Status.OFF);
+        } else {
+            noise.setStatus(Status.ON);
 
         }
         return getRoomByID(id);
