@@ -1,17 +1,19 @@
 package com.test.demo.Web;
 
-import com.test.demo.Models.Light;
+
+import com.test.demo.Models.Noise;
 import com.test.demo.Models.Status;
 
 public class NoiseDto {
+
     private final Long id;
     private final Integer level;
     private final Status status;
 
-    public NoiseDto(Light light) {
-        this.id = light.getId();
-        this.level = light.getLevel();
-        this.status = light.getStatus();
+    public NoiseDto(Noise noise) {
+        this.id = noise.getId();
+        this.level = noise.getLevel();
+        this.status = noise.getStatus();
     }
 
     public Long getId() {
@@ -25,5 +27,4 @@ public class NoiseDto {
     public Status getStatus() {
         return status;
     }
-
 }
