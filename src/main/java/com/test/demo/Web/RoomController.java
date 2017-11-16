@@ -46,7 +46,7 @@ public class RoomController {
     }
 
     @PostMapping(value = "/api/rooms/{id}/switch-noise")
-    public RoomDto switchNoise(@PathVariable Long id) {
+    public List<RoomDto> switchNoise(@PathVariable Long id) {
         Noise noise = roomDao.getOne(id).getNoise();
         if (noise.getStatus() == Status.ON) {
             noise.setStatus(Status.OFF);
@@ -54,7 +54,7 @@ public class RoomController {
             noise.setStatus(Status.ON);
 
         }
-        return getRoomByID(id);
+        return roomDao.findAll().stream().map(RoomDto::new).collect(Collectors.toList());
     }
 
     @GetMapping(value = "/api/rooms/{id}")
