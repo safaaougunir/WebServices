@@ -32,17 +32,17 @@ public class RoomController {
         return roomDao.findAll().stream().map(RoomDto::new).collect(Collectors.toList());
     }
 
+
     @PostMapping(value = "/api/rooms/{id}/switch-light")
-    public RoomDto switchLight(@PathVariable Long id) {
+    public List<RoomDto> switchLight(@PathVariable Long id) {
         Light light = roomDao.getOne(id).getLight();
         if (light.getStatus() == Status.ON) {
-            light.setStatus(Status.OFF);
+                     light.setStatus(Status.OFF);
         } else {
             light.setStatus(Status.ON);
-
         }
 
-        return getRoomByID(id);
+        return roomDao.findAll().stream().map(RoomDto::new).collect(Collectors.toList());
     }
 
     @PostMapping(value = "/api/rooms/{id}/switch-noise")
