@@ -1,11 +1,12 @@
-package fr.emse.majeureinfo.springbootintro.model;
 
+package com.test.demo.Models;
+import com.test.demo.Models.Room;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
-@SuppressWarnings("serial")
+
 public class Building {
 
     @Id
@@ -16,30 +17,29 @@ public class Building {
     private String name;
 
 
-    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Room> rooms;
+    /**
+     * The Rooms of a Building
+     */
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Room> rooms;
 
+
+    @SuppressWarnings("unused")
     public Building() {
     }
 
-    public Building(String name) {
-        this.name = name;
-    }
-
-    public Set<Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(Set<Room> rooms) {
-        this.rooms = rooms;
-    }
-
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Room> getRooms() { return rooms;}
+
+    public void setRooms(List<Room> room) {
+        this.rooms = room;
     }
 
     public String getName() {
