@@ -16,7 +16,6 @@ public class BuildingController {
 
     private final BuildingDao buildingDao;
 
-
     public BuildingController(BuildingDao buildingDao) {
         this.buildingDao = buildingDao;
 
@@ -25,6 +24,11 @@ public class BuildingController {
     @GetMapping(value = "/api/buildings")
     public List<BuildingDto> list() {
         return buildingDao.findAll().stream().map(BuildingDto::new).collect(Collectors.toList());
+    }
+
+    @GetMapping(value = "/api/buildings/{id}")
+    public List<RoomDto> list(@PathVariable Long id) {
+        return buildingDao.getOne(id).getRooms().stream().map(RoomDto::new).collect(Collectors.toList());
     }
 
 }

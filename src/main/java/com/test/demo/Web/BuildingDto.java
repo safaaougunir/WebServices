@@ -24,7 +24,6 @@ public class BuildingDto {
         this.nb=building.getRooms().size();
         this.nbOnlight=building.getRooms().stream().filter(p -> (p.getLight().getStatus())==Status.ON).collect(Collectors.toList()).size();
         this.nbOnRinger=building.getRooms().stream().filter(p -> (p.getNoise().getStatus())==Status.ON).collect(Collectors.toList()).size();
-
     }
 
     public Long getId() {
