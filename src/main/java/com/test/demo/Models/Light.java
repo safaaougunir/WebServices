@@ -49,4 +49,13 @@ public class Light {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public Light switchlight(){
+        if (this.getStatus() == Status.ON) {
+            this.setStatus(Status.OFF);
+        } else {
+            this.setStatus(Status.ON);
+        }
+        return this;
+    }
 }
